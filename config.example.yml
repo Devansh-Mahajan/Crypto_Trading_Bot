@@ -1,0 +1,45 @@
+# Copy this file to config.yml and fill in your credentials.
+exchange: binance
+api_key: YOUR_API_KEY
+secret: YOUR_SECRET
+password: null
+symbol: BTC/USDT
+timeframe: 1h
+trade:
+  mode: paper  # live or paper
+  quote_currency: USDT
+  order_size_pct: 100  # percent of available cash risked per signal
+  poll_interval: 300  # seconds between market updates
+  use_coingecko_price: true  # fallback to CoinGecko for price checks
+strategy:
+  fast_ema: 8
+  slow_ema: 21
+  rsi_period: 14          # RSI lookback period
+  rsi_overbought: 70      # block buy signals when RSI >= this level
+  use_rsi: true           # set false to use pure EMA crossover
+  risk_pct: 1.0
+  stop_loss_pct: 1.5
+  take_profit_pct: 3.0
+  max_exposure_pct: 3.0
+  min_balance_usd: 20
+logging:
+  level: INFO
+paper:
+  starting_balance: 10000
+  fees_pct: 0.05  # percent trading fee for simulated orders
+# ── Backtesting (CLI: python bot.py backtest) ──────────────────────────────
+# All parameters can be overridden via CLI flags; this section is for reference.
+#
+# Usage examples:
+#   python bot.py backtest --symbol BTC/USDT --days 90 --strategy ema_rsi
+#   python bot.py backtest --symbol ETH/USDT --days 30 --strategy all
+#   python bot.py backtest --symbol SOL/USDT --days 90 --stop-loss 3 --take-profit 8
+#
+# Available strategies: ema_rsi | macd | bollinger | supertrend | all
+#
+# Free CoinGecko candle granularity:
+#   --days 1-2   → 30-minute candles
+#   --days 3-30  → 4-hour candles   ← recommended for intraday strategies
+#   --days 31+   → 4-day candles    ← useful for swing/position strategies
+#
+# No CoinGecko API key is required for free-tier usage.
